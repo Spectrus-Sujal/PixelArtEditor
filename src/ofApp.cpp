@@ -21,11 +21,11 @@ void ofApp::draw()
 
 void ofApp::resizeGrid()
 {
-	grid.resize(gridSize.x);
+	grid.resize(gridSize.y);
 
 	for (auto col{ 0 }; col < grid.size(); ++col)
 	{
-		grid[col].resize(gridSize.y);
+		grid[col].resize(gridSize.x);
 
 		for (auto row{ 0 }; row < grid[col].size(); ++row)
 		{
@@ -34,7 +34,6 @@ void ofApp::resizeGrid()
 		}
 	}
 }
-
 
 void ofApp::drawPixels(std::vector<std::vector<Pixel>>& pixels, int width, int height) const
 {
@@ -110,7 +109,6 @@ void ofApp::keyPressed(int key)
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button)
 {
-	bool breaker{ false };
 	for (auto row{ 0 }; row < gridSize.x; ++row)
 	{
 		for (auto col{ 0 }; col < gridSize.y; ++col)
@@ -120,22 +118,13 @@ void ofApp::mousePressed(int x, int y, int button)
 				if (y < ((col + 1) * (gridHeight / gridSize.y)))
 				{
 					grid[col][row] = colorSelected;
-					breaker = true;
+					return;
 				}
 			}
 			else
 			{
 				break;
 			}
-
-			if (breaker)
-			{
-				break;
-			}
-		}
-		if (breaker)
-		{
-			break;
 		}
 	}
 }
