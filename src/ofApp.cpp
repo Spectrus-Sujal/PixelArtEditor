@@ -108,9 +108,9 @@ void ofApp::keyPressed(int key)
 	{
 		outputFile.clear();
 
-		outputFile << "P1\N";
+		outputFile << "P3\n";
 
-		outputFile << gridSize.x << "   " << gridSize.y << "\n";
+		outputFile << gridSize.x << "   " << gridSize.y << "\n" << 255 << "\n";
 
 		for(auto i {0}; i < gridSize.y; ++i)
 		{
