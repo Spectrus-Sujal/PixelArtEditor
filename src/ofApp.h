@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ofMain.h"
+#include <fstream>
+#include <iostream>
 
 class ofApp : public ofBaseApp {
 
@@ -42,5 +44,8 @@ public:
 	Pixel blue{ 0, 0, 255 };
 
 	Pixel colorSelected;
+
+	// Save Art
+	std::ofstream outputFile{ "SaveData.ppm" };
 
 };

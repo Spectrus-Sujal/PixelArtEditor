@@ -104,6 +104,25 @@ void ofApp::keyPressed(int key)
 		break;
 	}
 
+	if(key == 'o' || key == 'O')
+	{
+		outputFile.clear();
+
+		outputFile << "P1\N";
+
+		outputFile << gridSize.x << "   " << gridSize.y << "\n";
+
+		for(auto i {0}; i < gridSize.y; ++i)
+		{
+			for (auto j{ 0 }; j < gridSize.x; ++j)
+			{
+				outputFile << grid[i][j].r << " " << grid[i][j].g << " " << grid[i][j].b << "\n";
+			}
+		}
+
+		outputFile.close();
+	}
+
 }
 
 //--------------------------------------------------------------
