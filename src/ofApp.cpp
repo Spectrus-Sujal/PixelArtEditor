@@ -16,48 +16,37 @@ void ofApp::update()
 void ofApp::draw()
 {
 	ofSetBackgroundColor(100);
-
-	//Only run one of the following at a time
-
-	//draw batman
-	//drawPixels(batman, gridWidth, gridHeight);
-
-	//toggle parts black/white
 	drawPixels(grid, gridWidth, gridHeight);
 }
 
 void ofApp::resizeGrid()
 {
-	grid.resize(gridSize.y);
+	grid.resize(gridSize.x);
+
 	for (auto col{ 0 }; col < grid.size(); ++col)
 	{
-		grid[col].resize(gridSize.x);
+		grid[col].resize(gridSize.y);
 
-		for (auto row{ 0 }; row < gridSize.x; ++row)
+		for (auto row{ 0 }; row < grid[col].size(); ++row)
 		{
-			grid[col][row] = false;
+			Pixel temp{ 255, 255, 255 };
+			grid[col][row] = temp;
 		}
 	}
 }
 
-void ofApp::drawPixels(std::vector<std::vector<bool>>& pixels, int width, int height) const
+
+void ofApp::drawPixels(std::vector<std::vector<Pixel>>& pixels, int width, int height) const
 {
 	const int h = height / pixels.size();
 	const int w = width / pixels[0].size();
-	for (auto row{ 0 }; row < pixels[0].size(); ++row)
+
+	for (auto col{ 0 }; col < pixels.size(); ++col)
 	{
-		for (auto col{ 0 }; col < pixels.size(); ++col)
+		for (auto row{ 0 }; row < pixels[col].size(); ++row)
 		{
-			if (pixels[col][row])
-			{
-				ofSetColor(0);
-				ofDrawRectangle(row * w, col * h, w, h);
-			}
-			else
-			{
-				ofSetColor(255);
-				ofDrawRectangle(row * w, col * h, w - 1, h - 1);
-			}
+			ofSetColor(pixels[col][row].r, pixels[col][row].g, pixels[col][row].b);
+			ofDrawRectangle(row * w, col * h, w, h);
 		}
 	}
 }
@@ -93,20 +82,28 @@ void ofApp::keyPressed(int key)
 		resizeGrid();
 	}
 
-}
+	switch (key)
+	{
+	case '1':
+		colorSelected = white;
+		break;
 
-//--------------------------------------------------------------
-void ofApp::keyReleased(int key) {
+	case '2':
+		colorSelected = black;
+		break;
 
-}
+	case '3':
+		colorSelected = red;
+		break;
 
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y) {
+	case '4':
+		colorSelected = green;
+		break;
 
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button) {
+	case '5':
+		colorSelected = blue;
+		break;
+	}
 
 }
 
@@ -122,7 +119,7 @@ void ofApp::mousePressed(int x, int y, int button)
 			{
 				if (y < ((col + 1) * (gridHeight / gridSize.y)))
 				{
-					grid[col][row] = !grid[col][row];
+					grid[col][row] = colorSelected;
 					breaker = true;
 				}
 			}
