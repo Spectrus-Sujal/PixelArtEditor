@@ -106,6 +106,9 @@ void ofApp::keyPressed(int key)
 
 	if(key == 'o' || key == 'O')
 	{
+		// Save Art
+		std::ofstream outputFile{ "SaveData.ppm" };
+
 		outputFile.clear();
 
 		outputFile << "P3\n";
@@ -125,6 +128,10 @@ void ofApp::keyPressed(int key)
 
 	if(key == 'p' || key == 'P')
 	{
+
+		// Save Art
+		std::ofstream outputFile{ "SaveData.ppm" };
+
 		outputFile.clear();
 
 		outputFile << "P1\n";
@@ -174,18 +181,30 @@ void ofApp::keyPressed(int key)
 		{
 			for (auto j{ 0 }; j < gridSize.x; ++j)
 			{
-				int temp;
-				inputFile >> temp;
-
-				if(temp == 1)
+				if(mode == "P1")
 				{
-					grid[i][j] = Pixel {0, 0, 0};
+					int temp;
+					inputFile >> temp;
+
+					if(temp == 1)
+					{
+						grid[i][j] = Pixel {0, 0, 0};
+					}
+					else
+					{
+						grid[i][j] = Pixel {255, 255, 255};
+					}
 				}
 				else
 				{
-					grid[i][j] = Pixel {255, 255, 255};
+					int r;
+					int g;
+					int b;
+
+					inputFile >> r >> g >> b;
+
+					grid[i][j] = Pixel{r, g, b};
 				}
-				
 			}
 		}
 

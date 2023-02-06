@@ -50,7 +50,6 @@ public:
 
 	Pixel colorSelected;
 
-	// Save Art
-	std::ofstream outputFile{ "SaveData.ppm" };
+	
 
 };
