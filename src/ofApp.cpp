@@ -135,13 +135,13 @@ void ofApp::keyPressed(int key)
 		{
 			for (auto j{ 0 }; j < gridSize.x; ++j)
 			{
-				if(grid[i][j] == Pixel {0, 0, 0})
+				if(grid[i][j] == Pixel {255, 255, 255})
 				{
-					outputFile << 1 << " ";
+					outputFile << 0 << " ";
 				}
 				else
 				{
-					outputFile << 0 << " ";
+					outputFile << 1 << " ";
 				}
 				
 			}
