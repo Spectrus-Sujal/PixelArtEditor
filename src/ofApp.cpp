@@ -83,135 +83,144 @@ void ofApp::keyPressed(int key)
 
 	switch (key)
 	{
-	case '1':
-		colorSelected = white;
+		case '1':
+			colorSelected = white;
 		break;
 
-	case '2':
-		colorSelected = black;
+		case '3':
+			colorSelected = red;
 		break;
 
-	case '3':
-		colorSelected = red;
+		case '4':
+			colorSelected = green;
 		break;
 
-	case '4':
-		colorSelected = green;
+		case '5':
+			colorSelected = blue;
 		break;
 
-	case '5':
-		colorSelected = blue;
+		case '2':
+		default:
+			colorSelected = black;
 		break;
-	}
 
-	if(key == 'o' || key == 'O')
-	{
-		// Save Art
-		std::ofstream outputFile{ "SaveData.ppm" };
-
-		outputFile.clear();
-
-		outputFile << "P3\n";
-
-		outputFile << gridSize.x << "   " << gridSize.y << "\n" << 255 << "\n";
-
-		for(auto i {0}; i < gridSize.y; ++i)
-		{
-			for (auto j{ 0 }; j < gridSize.x; ++j)
-			{
-				outputFile << grid[i][j].r << " " << grid[i][j].g << " " << grid[i][j].b << "\n";
-			}
-		}
-
-		outputFile.close();
 	}
 
 	if(key == 'p' || key == 'P')
 	{
+		saveBW();
+	}
 
-		// Save Art
-		std::ofstream outputFile{ "SaveData.ppm" };
-
-		outputFile.clear();
-
-		outputFile << "P1\n";
-
-		outputFile << gridSize.x << "   " << gridSize.y << "\n" << 1 << "\n";
-
-		for(auto i {0}; i < gridSize.y; ++i)
-		{
-			for (auto j{ 0 }; j < gridSize.x; ++j)
-			{
-				if(grid[i][j] == Pixel {255, 255, 255})
-				{
-					outputFile << 0 << " ";
-				}
-				else
-				{
-					outputFile << 1 << " ";
-				}
-				
-			}
-
-			outputFile << "\n";
-		}
-
-		outputFile.close();
+	if(key == 'o' || key == 'O')
+	{
+		saveColor();
 	}
 
 	if(key == 'l' || key == 'L')
 	{
-		std::ifstream inputFile{"SaveData.ppm"};
-
-		string mode;
-		int sizeX;
-		int sizeY;
-		int maxSize;
-
-		inputFile >> mode >> sizeX >> sizeY >> maxSize;
-
-		gridWidth -= (gridWidth / gridSize.x) * (gridSize.x - sizeX);
-		gridHeight -= (gridHeight / gridSize.y) * (gridSize.y - sizeY);
-		gridSize.x = sizeX;
-		gridSize.y = sizeY;
-		
-		resizeGrid();
-
-		for(auto i {0}; i < gridSize.y; ++i)
-		{
-			for (auto j{ 0 }; j < gridSize.x; ++j)
-			{
-				if(mode == "P1")
-				{
-					int temp;
-					inputFile >> temp;
-
-					if(temp == 1)
-					{
-						grid[i][j] = Pixel {0, 0, 0};
-					}
-					else
-					{
-						grid[i][j] = Pixel {255, 255, 255};
-					}
-				}
-				else
-				{
-					int r;
-					int g;
-					int b;
-
-					inputFile >> r >> g >> b;
-
-					grid[i][j] = Pixel{r, g, b};
-				}
-			}
-		}
-
-		inputFile.close();
+		loadCanvas();
 	}
 
 }
+
+void ofApp::saveBW()
+{
+	// Save Art
+	std::ofstream outputFile{ "SaveData.ppm" };
+	outputFile.clear();
+	outputFile << "P1\n";
+	outputFile << gridSize.x << "   " << gridSize.y << "\n" << 1 << "\n";
+
+	for(auto i {0}; i < gridSize.y; ++i)
+	{
+		for (auto j{ 0 }; j < gridSize.x; ++j)
+		{
+			if(grid[i][j] == Pixel {255, 255, 255})
+			{
+				outputFile << 0 << " ";
+			}
+			else
+			{
+				outputFile << 1 << " ";
+			}
+			
+		}
+		outputFile << "\n";
+	}
+	outputFile.close();
+}
+
+
+void ofApp::saveColor() const
+{
+	// Save Art
+	std::ofstream outputFile{ "SaveData.ppm" };
+
+	outputFile.clear();
+
+	outputFile << "P3\n";
+
+	outputFile << gridSize.x << "   " << gridSize.y << "\n" << 255 << "\n";
+
+	for(auto i {0}; i < gridSize.y; ++i)
+	{
+		for (auto j{ 0 }; j < gridSize.x; ++j)
+		{
+			outputFile << grid[i][j].r << " " << grid[i][j].g << " " << grid[i][j].b << "\n";
+		}
+	}
+
+	outputFile.close();
+}
+
+void ofApp::loadCanvas()
+{
+	std::ifstream inputFile{"SaveData.ppm"};
+
+	string mode;
+	int sizeX;
+	int sizeY;
+	int maxSize;
+
+	inputFile >> mode >> sizeX >> sizeY >> maxSize;
+
+	gridWidth -= (gridWidth / gridSize.x) * (gridSize.x - sizeX);
+	gridHeight -= (gridHeight / gridSize.y) * (gridSize.y - sizeY);
+	gridSize.x = sizeX;
+	gridSize.y = sizeY;
+		
+	resizeGrid();
+
+	for(auto i {0}; i < gridSize.y; ++i)
+	{
+		for (auto j{ 0 }; j < gridSize.x; ++j)
+		{
+			if(mode == "P1")
+			{
+				int temp;
+				inputFile >> temp;
+				if(temp == 1)
+				{
+					grid[i][j] = Pixel {0, 0, 0};
+				}
+				else
+				{
+					grid[i][j] = Pixel {255, 255, 255};
+				}
+			}
+			else
+			{
+				int r;
+				int g;
+				int b;
+				inputFile >> r >> g >> b;
+				grid[i][j] = Pixel{r, g, b};
+			}
+		}
+	}
+	inputFile.close();
+}
+
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button)

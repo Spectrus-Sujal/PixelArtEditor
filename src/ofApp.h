@@ -37,6 +37,10 @@ public:
 
 	void pixelClicker();
 
+	void saveColor() const;
+	void saveBW();
+	void loadCanvas();
+
 	int gridWidth{ 1000 };
 	int gridHeight{ 1000 };
 	Point gridSize{ 20, 20 };
@@ -49,7 +53,5 @@ public:
 	Pixel blue{ 0, 0, 255 };
 
 	Pixel colorSelected;
-
-	
 
 };
