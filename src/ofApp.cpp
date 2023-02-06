@@ -123,6 +123,35 @@ void ofApp::keyPressed(int key)
 		outputFile.close();
 	}
 
+	if(key == 'p' || key == 'P')
+	{
+		outputFile.clear();
+
+		outputFile << "P1\n";
+
+		outputFile << gridSize.x << "   " << gridSize.y << "\n" << 1 << "\n";
+
+		for(auto i {0}; i < gridSize.y; ++i)
+		{
+			for (auto j{ 0 }; j < gridSize.x; ++j)
+			{
+				if(grid[i][j] == Pixel {0, 0, 0})
+				{
+					outputFile << 1 << " ";
+				}
+				else
+				{
+					outputFile << 0 << " ";
+				}
+				
+			}
+
+			outputFile << "\n";
+		}
+
+		outputFile.close();
+	}
+
 }
 
 //--------------------------------------------------------------
