@@ -152,6 +152,46 @@ void ofApp::keyPressed(int key)
 		outputFile.close();
 	}
 
+	if(key == 'l' || key == 'L')
+	{
+		std::ifstream inputFile{"SaveData.ppm"};
+
+		string mode;
+		int sizeX;
+		int sizeY;
+		int maxSize;
+
+		inputFile >> mode >> sizeX >> sizeY >> maxSize;
+
+		gridWidth -= (gridWidth / gridSize.x) * (gridSize.x - sizeX);
+		gridHeight -= (gridHeight / gridSize.y) * (gridSize.y - sizeY);
+		gridSize.x = sizeX;
+		gridSize.y = sizeY;
+		
+		resizeGrid();
+
+		for(auto i {0}; i < gridSize.y; ++i)
+		{
+			for (auto j{ 0 }; j < gridSize.x; ++j)
+			{
+				int temp;
+				inputFile >> temp;
+
+				if(temp == 1)
+				{
+					grid[i][j] = Pixel {0, 0, 0};
+				}
+				else
+				{
+					grid[i][j] = Pixel {255, 255, 255};
+				}
+				
+			}
+		}
+
+		inputFile.close();
+	}
+
 }
 
 //--------------------------------------------------------------
