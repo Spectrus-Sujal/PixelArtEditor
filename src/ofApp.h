@@ -16,6 +16,11 @@ class ofApp : public ofBaseApp {
 		int r;
 		int g;
 		int b;
+
+		bool operator==(Pixel temp)
+		{
+			return r == temp.r && g == temp.g && b == temp.b;
+		}
 	};
 
 public:
