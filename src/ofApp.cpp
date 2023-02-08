@@ -129,7 +129,7 @@ void ofApp::saveBW()
 	std::ofstream outputFile{ "SaveData.ppm" };
 	outputFile.clear();
 	outputFile << "P1\n";
-	outputFile << gridSize.x << "   " << gridSize.y << "\n" << 1 << "\n";
+	outputFile << gridSize.x << "   " << gridSize.y << "\n";
 
 	for(auto i {0}; i < gridSize.y; ++i)
 	{
