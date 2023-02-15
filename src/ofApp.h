@@ -39,6 +39,7 @@ public:
 
 	void saveColor();
 	void saveBW();
+	void savePNG();
 	void loadCanvas();
 
 	int gridWidth{ 1000 };

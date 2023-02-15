@@ -106,7 +106,7 @@ void ofApp::keyPressed(int key)
 
 	}
 
-	if(key == 'p' || key == 'P')
+	if(key == 'i' || key == 'I')
 	{
 		saveBW();
 	}
@@ -121,6 +121,11 @@ void ofApp::keyPressed(int key)
 		loadCanvas();
 	}
 
+	if (key == 'p' || key == 'P')
+	{
+		savePNG();
+	}
+
 }
 
 void ofApp::saveBW()
@@ -133,6 +138,7 @@ void ofApp::saveBW()
 		// save your file to `SaveDataPath`
 	}
 	std::ofstream outputFile{ SaveDataPath };
+
 	outputFile.clear();
 	outputFile << "P1\n";
 	outputFile << gridSize.x << "   " << gridSize.y << "\n";
@@ -154,6 +160,16 @@ void ofApp::saveBW()
 		outputFile << "\n";
 	}
 	outputFile.close();
+}
+
+void ofApp::savePNG()
+{
+	ofFileDialogResult result = ofSystemSaveDialog("Canvas.png", "Save");
+	if (result.bSuccess)
+	{
+		ofSaveScreen(result.getPath());
+		// save your file to `SaveDataPath`
+	}
 }
 
 
