@@ -126,7 +126,13 @@ void ofApp::keyPressed(int key)
 void ofApp::saveBW()
 {
 	// Save Art
-	std::ofstream outputFile{ "SaveData.ppm" };
+	ofFileDialogResult result = ofSystemSaveDialog("SaveData.ppm", "Save");
+	if (result.bSuccess)
+	{
+		SaveDataPath = result.getPath();
+		// save your file to `SaveDataPath`
+	}
+	std::ofstream outputFile{ SaveDataPath };
 	outputFile.clear();
 	outputFile << "P1\n";
 	outputFile << gridSize.x << "   " << gridSize.y << "\n";
@@ -151,10 +157,18 @@ void ofApp::saveBW()
 }
 
 
-void ofApp::saveColor() const
+void ofApp::saveColor()
 {
 	// Save Art
-	std::ofstream outputFile{ "SaveData.ppm" };
+
+	ofFileDialogResult result = ofSystemSaveDialog("SaveData.ppm", "Save");
+	if (result.bSuccess) 
+	{
+		SaveDataPath = result.getPath();
+		// save your file to `SaveDataPath`
+	}
+
+	std::ofstream outputFile{ SaveDataPath };
 
 	outputFile.clear();
 
@@ -175,7 +189,7 @@ void ofApp::saveColor() const
 
 void ofApp::loadCanvas()
 {
-	std::ifstream inputFile{"SaveData.ppm"};
+	std::ifstream inputFile{ SaveDataPath };
 
 	string mode;
 	int sizeX;

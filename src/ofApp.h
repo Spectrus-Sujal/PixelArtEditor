@@ -37,7 +37,7 @@ public:
 
 	void pixelClicker();
 
-	void saveColor() const;
+	void saveColor();
 	void saveBW();
 	void loadCanvas();
 
@@ -53,5 +53,7 @@ public:
 	Pixel blue{ 0, 0, 255 };
 
 	Pixel colorSelected;
+
+	std::string SaveDataPath;
 
 };
