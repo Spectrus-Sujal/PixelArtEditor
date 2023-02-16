@@ -137,6 +137,7 @@ void ofApp::saveBW()
 		SaveDataPath = result.getPath();
 		// save your file to `SaveDataPath`
 	}
+
 	std::ofstream outputFile{ SaveDataPath };
 
 	outputFile.clear();
@@ -205,6 +206,12 @@ void ofApp::saveColor()
 
 void ofApp::loadCanvas()
 {
+	ofFileDialogResult result = ofSystemLoadDialog("Load file");
+	if (result.bSuccess) {
+		SaveDataPath = result.getPath();
+		// load your file at `path`
+	}
+
 	std::ifstream inputFile{ SaveDataPath };
 
 	string mode;
