@@ -6,17 +6,17 @@ This look into save systems is made using C++ and <a href="https://openframework
 
 ## Projetct Hot keys
 ### Colors
-1: Color White
-2: Color Black
-3: Color Red
-4: Color Green
-5: Color Blue
+1: Color White <br>
+2: Color Black <br>
+3: Color Red <br>
+4: Color Green <br>
+5: Color Blue <br>
 
 ### Saving
-I: Save canvas as Black and White to File Explorer
-O: Save canvas with all Colors to File Explorer
-L: Load canvas from File Explorer
-P: Save canvas as PNG to File Explorer
+I: Save canvas as Black and White to File Explorer <br>
+O: Save canvas with all Colors to File Explorer <br>
+L: Load canvas from File Explorer <br>
+P: Save canvas as PNG to File Explorer </br>
 
 
 ### Importing this project
